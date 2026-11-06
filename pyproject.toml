@@ -1,0 +1,16 @@
+[project]
+name = "mc_launcher_cli"
+version = "0.1"
+description = "Minecraft Launcher Command Line"
+authors = [
+    { name = "Jacko", email = "l2982211930@163.com" }
+]
+dependencies = [
+]
+
+[project.scripts]
+MCL = "mc_launcher_cli.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
