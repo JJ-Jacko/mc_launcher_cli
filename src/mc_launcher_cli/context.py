@@ -17,6 +17,12 @@ JAVA_PROGRAM_DIRS = frozenset({
     Path("C:\Program Files\Java"),
 })
 
+class MC_RESOURCE:
+    DIR = Path(os.environ["APPDATA"]) / ".minecraft"
+
+    VERSIONS = DIR / "versions"
+
+
 # Initialization
 CONFIG = load_config(CONFIG_FILE)
 

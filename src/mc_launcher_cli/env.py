@@ -5,8 +5,12 @@ from typing import List
 
 from mc_launcher_cli.context import PROJECT_DATA
 from mc_launcher_cli.context import JAVA_PROGRAM_DIRS
+from mc_launcher_cli.context import MC_RESOURCE
 from mc_launcher_cli.datas import Java
+from mc_launcher_cli.datas import Minecraft
+from mc_launcher_cli.dicts import VersionInfo
 from mc_launcher_cli.other import load_config
+from mc_launcher_cli.other import load_json_file
 
 
 def run_in_administrator():
@@ -55,3 +59,35 @@ def get_javas():
             ))
 
     return javas
+
+
+def get_minecrafts():
+    minecrafts: List[Minecraft] = []
+
+    for sub in MC_RESOURCE.VERSIONS.iterdir():
+        if not sub.is_dir():
+            continue
+
+        program_file = sub / f"{sub.name}.jar"
+        version_file = sub / f"{sub.name}.json"
+
+        if not all([
+            program_file.exists(),
+            program_file.is_file(),
+            version_file.exists(),
+            version_file.is_file()
+        ]):
+            continue
+
+        version_info: VersionInfo = load_json_file(version_file)
+
+        if sub.name != version_info["id"]:
+            continue
+
+        minecrafts.append(Minecraft(
+            ID=version_info["id"],
+            HOME=sub,
+            VERSION=version_info["clientVersion"]
+        ))
+
+    return minecrafts

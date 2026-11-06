@@ -8,3 +8,10 @@ class Java:
     IMPLEMENTOR: str
     VERSION: str
     OS_ARCH: str
+
+
+@dataclass(frozen=True)
+class Minecraft:
+    ID: str
+    HOME: Path
+    VERSION: str
