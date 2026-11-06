@@ -2,6 +2,8 @@
 
 import ctypes
 
+from mc_launcher_cli.context import PROJECT_DATA
+
 
 def run_in_administrator():
     
@@ -12,3 +14,8 @@ def run_in_administrator():
             return True
         case _:
             raise Exception
+
+
+def init_project_data():
+    PROJECT_DATA.mkdir(parents=True, exist_ok=True)
+    
