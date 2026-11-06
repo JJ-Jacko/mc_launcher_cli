@@ -13,6 +13,9 @@ __all__ = [
 
 # Path
 CONFIG_FILE = Path("config.toml")
+JAVA_PROGRAM_DIRS = frozenset({
+    Path("C:\Program Files\Java"),
+})
 
 # Initialization
 CONFIG = load_config(CONFIG_FILE)

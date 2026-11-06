@@ -1,8 +1,12 @@
 """Environment operations"""
 
 import ctypes
+from typing import List
 
 from mc_launcher_cli.context import PROJECT_DATA
+from mc_launcher_cli.context import JAVA_PROGRAM_DIRS
+from mc_launcher_cli.datas import Java
+from mc_launcher_cli.other import load_config
 
 
 def run_in_administrator():
@@ -19,4 +23,35 @@ def run_in_administrator():
 def init_project_data():
     PROJECT_DATA.DIR.mkdir(parents=True, exist_ok=True)
     PROJECT_DATA.LOGS.mkdir(parents=True, exist_ok=True)
+
+
+def get_javas():
+    javas: List[Java] = []
     
+    for java_program_dir in JAVA_PROGRAM_DIRS:
+        for java_home in java_program_dir.iterdir():
+            release_file = java_home / "release"
+            java_file = java_home / "bin/java.exe"
+
+            if not release_file.exists():
+                continue
+
+            if not all([
+                java_file.exists(),
+                java_file.is_file()
+            ]):
+                continue
+
+            release = load_config(release_file)
+            implementor = release.get("IMPLEMENTOR")
+            java_version = release.get("JAVA_VERSION")
+            os_arch = release.get("OS_ARCH")
+            
+            javas.append(Java(
+                HOME=java_home,
+                IMPLEMENTOR=implementor,
+                VERSION=java_version,
+                OS_ARCH=os_arch
+            ))
+
+    return javas
