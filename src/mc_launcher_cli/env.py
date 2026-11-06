@@ -17,5 +17,6 @@ def run_in_administrator():
 
 
 def init_project_data():
-    PROJECT_DATA.mkdir(parents=True, exist_ok=True)
+    PROJECT_DATA.DIR.mkdir(parents=True, exist_ok=True)
+    PROJECT_DATA.LOGS.mkdir(parents=True, exist_ok=True)
     
