@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
-MCL = "mc_launcher_cli.cli:main"
+mcl  = "mc_launcher_cli.cli:main"
 
 [build-system]
 requires = ["hatchling"]
