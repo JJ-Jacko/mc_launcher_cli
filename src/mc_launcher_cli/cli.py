@@ -1,6 +1,7 @@
 """The Minecraft launcher based on CLI"""
 
 import argparse
+from importlib import metadata
 
 from mc_launcher_cli.env import init_project_data
 from mc_launcher_cli.env import get_javas
@@ -31,6 +32,11 @@ def install_instance(args: argparse.Namespace):
 def create_parser():
     # Root
     parser = argparse.ArgumentParser(prog="mcl", description=__doc__)
+    parser.add_argument(
+        "-v", "--version",
+        action="version",
+        version=f"%(prog)s {metadata.version('mc_launcher_cli')}",
+    )
     parser.set_defaults(parser_help=parser)
     parser_commands = parser.add_subparsers(dest="command")
 
